@@ -24,6 +24,8 @@ def trainme():
 	params = {"dirPath" : dirPath,"train_ratio": train_ratio,"kernel_provided" : "rbf", "C_provided": 10000.0,"gamma_provided" : 0.6}
 	print("bhej raha hu")
 	modelFilePath = train_svm(params)
+	print(modelFilePath+ " bhangar wala\n")
+	modelFilePath = modelFilePath.replace("\\",'/')
 	print(modelFilePath+ " result aaya")
 	# if not modelFilePath:
 	# 	return redirect(url_for('nomasti'))

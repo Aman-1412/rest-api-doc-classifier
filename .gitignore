@@ -99,3 +99,11 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+#CUSTOM
+*.txt
+News_20C/
+DC*
+News_20C.zip
+multi-class_vect.ipynb
+rest-1 aakash.py
