@@ -53,12 +53,13 @@ def train_svm(params):
 	except:
 		print("kisine lolwa kiya!!!!!!!!!!!!!!!!!!!!!!!")
 		modelFilePath = ""
-	return modelFilePath
+		modelFileName = ""
+	return modelFileName
 
 def test_svm(saved_model, TEST_DIR):
 # Baadme karna. Pehle training
-	# all_of_it = load_files(r"D:\kaam\AdditionalParsed", shuffle=True, random_state=None)
-	names = ["AoI", "MC"]
+	all_of_it = load_files(r"D:\kaam\AdditionalParsed", shuffle=True, random_state=None)
+	# names = ["AoI", "MC"]
 	# print(X_test_tf.shape)
 	if not saved_model:
 		all_models_that_i_have = [(os.path.getmtime(fn), fn) for fn in os.scandir(all_models_path) if fn.name.endswith(ext)]
@@ -83,7 +84,7 @@ def test_svm(saved_model, TEST_DIR):
 		for file_ in files:
 			with open(os.path.join(TEST_DIR, file_)) as f:
 				# print(file_ + "\t" + all_of_it.target_names[int(loadedModel.predict(loadedVect.transform([f.read()])))])
-				# res[file_] = all_of_it.target_names[int(loadedModel.predict(loadedVect.transform([f.read()])))]
-				res[file_] = names[int(loadedModel.predict(loadedVect.transform([f.read()])))]
+				res[file_] = all_of_it.target_names[int(loadedModel.predict(loadedVect.transform([f.read()])))]
+				# res[file_] = names[int(loadedModel.predict(loadedVect.transform([f.read()])))]
 	resulta = [{"file": i,"cat":"{}".format(j)} for i,j in res.items()]
 	return resulta
