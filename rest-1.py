@@ -11,13 +11,14 @@ app = Flask(__name__)
 # test_document_path=""
 # test_document_raw=""
 
-
+default_train_dir_path = "D:\kaam\AdditionalParsed"
+default_test_dir_path = r"D:\kaam\AdditionalParsedTest"
 
 @app.route('/document-classifier/api/v1/train', methods = ['GET','POST'])
 def trainme():
 	# classifier abhi mat use karna
 	# classifier = request.args.get("classifier") if request.args.get("classifier") else "asdfg"
-	dirPath = request.args.get("train_path") or "D:\kaam\AdditionalParsed"
+	dirPath = request.args.get("train_path") or default_train_dir_path
 	train_ratio = float(request.args.get("train_ratio")) if request.args.get("train_ratio") else  0.8
 	test_ratio = float(f'{1 - train_ratio:.4f}')
 	print("Values aa gayi(GET)")
@@ -33,7 +34,7 @@ def trainme():
 
 @app.route('/document-classifier/api/v1/test', methods = ['GET','POST'])
 def testme():
-	test_document_path = request.args.get("test_document_path") or r"D:\kaam\AdditionalParsedTest"
+	test_document_path = request.args.get("test_document_path") or default_test_dir_path
 	saved_model_path = request.args.get("saved_model_path") # if request.args.get("saved_model_path") else "/default/path/here.sav"
 	# test_document_raw = request.form['test_document_raw']
 	# with open("D:\kaam\AdditionalParsedTest\AoI1.txt") as f:
