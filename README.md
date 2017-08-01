@@ -9,4 +9,4 @@ A RESTful architecture for the document classifier project
 
 ## New features
   - Validation accuracy added. Uncomment to use.
-  - Creation of 2 csv files supported to help visualize the classification
+  - Creation of 2 csv files supported to help visualize the classification. Uncomment to use.
