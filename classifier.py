@@ -15,7 +15,10 @@ all_models_path = r"D:\kaam\all_models"
 ext = ".tupperware"
 
 
-
+#This function is called when the training endpoint receives all the data from the user
+#and starts training the machine learning algorithm
+#'params' is a dictionary which contains the necessary values.
+#It can be modified as needed..
 def train_svm(params):
 
 	try:
@@ -82,19 +85,29 @@ def train_svm(params):
 		# 		f.write(all_of_it.target_names[pred_values[i]])
 		# 		f.write("\n")
 
+		### After the files have been created, return the filepath as well to the calling API
+		### So that it can serve the downloads
+
+	#If someone or something screws up(Shouldn't happen. Spring boot shall ensure that)
 	except:
 		print("kisine lolwa kiya!!!!!!!!!!!!!!!!!!!!!!!")
 		modelFilePath = ""
 		modelFileName = ""
 	return modelFileName
 
+
+#This is function is called when the user hits the test endpoint and this is where the true testing happens.
+
 def test_svm(saved_model, TEST_DIR):
+	#the saved model uploaded by the user
 	loadedModelDict = joblib.load(saved_model)
 
 	all_of_it = load_files(loadedModelDict['dirPath'], shuffle=True, random_state=None)
 	# all_of_it = load_files(r"D:\kaam\AdditionalParsed", shuffle=True, random_state=None)
 	# names = ["AoI", "MC"]
 
+	##DEPRECATED:
+	#In case of an empty model file
 	if not saved_model:
 		all_models_that_i_have = [(os.path.getmtime(fn), fn) for fn in os.scandir(all_models_path) if fn.name.endswith(ext)]
 		all_models_that_i_have.sort(reverse=True)
@@ -103,13 +116,9 @@ def test_svm(saved_model, TEST_DIR):
 	loadedModel = loadedModelDict['modelFile']
 	loadedVect = loadedModelDict['vectFile']
 
-	# X_test_tf = loadedVect.transform(test_data)
-	# your_score = loadedModel.score(X_test_tf, all_of_it.target[num:])
-	# print(your_score)
 
 	res = dict()
 
-	# res['test_accuracy'] = your_score
 	print("File:\tClassified as:")
 	for home,subdir,files in os.walk(TEST_DIR):
 		for file_ in files:
